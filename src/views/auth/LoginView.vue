@@ -8,6 +8,8 @@ const email = ref('')
 const password = ref('')
 const error = ref(false)
 
+
+
 const submit = async () => {
   const formData = new FormData()
   formData.append('email', email.value)
@@ -19,6 +21,8 @@ const submit = async () => {
       router.replace({ name: 'dashboard' })
       error.value = false
       isLoading.value = false
+   
+      
     })
     .catch(() => {
       error.value = true

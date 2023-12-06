@@ -2,14 +2,20 @@
 import { ref, computed,onMounted } from 'vue'
 import { Card } from '@/ui'
 import { useStore } from '@/stores'
-import { technicien } from '@/services'
+import { article, technicien } from '@/services'
+
+
 
 onMounted(async() => {
   await technicien.all();
+  await article.all();
 })
 
 const listOfTechnicien = ref(computed(() => useStore.technicien().listOfTechnicien))
 const countTechnicien = ref(computed(() => useStore.technicien().count))
+const countItems = ref(computed(() => useStore.article().count))
+
+
 
 
 </script>
@@ -49,7 +55,7 @@ const countTechnicien = ref(computed(() => useStore.technicien().count))
         <Card
           title="Articles"
           icon="ti ti-box"
-          value="10"
+          :value="countItems!"
           icon-color="bg-success-transparent text-success"
         />
       </div>

@@ -3,16 +3,70 @@ import { useStore } from '@/stores';
 
 
 const all = async () => {
-    const res = await api().get('/technicien/show');
+  try {
+    const res = await api().get('/techniciens/show');
+    
     if (res.status === 200) {
-        console.log(res.data)
-        useStore.technicien().setListOfTechnicien(res.data.listOfTechniciens);
-        useStore.technicien().setCounter(res.data.count);
+      const { listOfTechniciens, count } = res.data;
+
+      // Assuming useStore.technicien() returns an object with setListOfTechnicien and setCounter methods
+      useStore.technicien().setListOfTechnicien(listOfTechniciens);
+      useStore.technicien().setCounter(count);
+      
+      console.log("Technicians:", listOfTechniciens);
+      console.log("Counter:", count);
     } else {
-        return null;
+      console.error("Failed to fetch technician data:", res.status, res.statusText);
     }
-}
+  } catch (error) {
+    console.error("Error while fetching technician data:", error.message);
+  }
+};
+
+
+
+const add = async (formData: FormData)  => {
+  try {
+     const res = await api().post('/techniciens/store', formData);
+     console.log(res.data);
+      return res.data;
+  } catch (error) {
+    // Handle the error
+    console.error('Error inserting technicien:', error);
+    return null;
+  }
+};
+
+
+ const deleteTechnicien = async (id) => {
+      try {
+        await api().delete(`/techniciens/delete/${id}`);
+        console.log("Technicien deleted successfully");
+      } catch (error) {
+        console.error("Error deleting technicien", error);
+      }
+    }; 
+
+     const updateTechnicien = async (id:number, updatedTechnicien)=> {
+    try {
+      const response = await api().post(`/techniciens/update/${id}`, updatedTechnicien);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating technicien:', error);
+      throw error;
+    }
+  }
+
+
+
+
+
+
+
 
 export const technicien = {
-    all
+    all ,
+    add , 
+    deleteTechnicien , 
+    updateTechnicien
 } 

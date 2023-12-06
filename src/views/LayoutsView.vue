@@ -146,19 +146,19 @@
           <ul class="main-menu">
             <li class="slide__category mb-4"><span class="category-name">Main</span></li>
             <li class="slide active-side">
-              <a href="index.html" class="side-menu__item">
+              <a href="/dashboard" class="side-menu__item">
                 <i class="ti ti-smart-home side-menu__icon"></i>
                 <span class="side-menu__label">Dashboard</span>
               </a>
             </li>
             <li class="slide">
-              <a href="index.html" class="side-menu__item">
+              <a href="/techniciens" class="side-menu__item">
                 <i class="ti ti-users side-menu__icon"></i>
                 <span class="side-menu__label">Techniciens</span>
               </a>
             </li>
             <li class="slide">
-              <a href="index.html" class="side-menu__item">
+              <a href="/articles" class="side-menu__item">
                 <i class="ti ti-box side-menu__icon"></i>
                 <span class="side-menu__label">Articles</span>
               </a>

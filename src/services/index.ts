@@ -1,2 +1,5 @@
 export * from './auth_service'
 export * from './technicien_service'
+export * from './city_services'
+export * from './article_service'
+export * from './category_service'
