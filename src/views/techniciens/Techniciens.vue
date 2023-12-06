@@ -16,6 +16,7 @@ const ListOfTechnicien = ref([]);
 onMounted(async () => {
   loading.value = true;
   await technicien.all();
+  
   ListOfTechnicien.value = useStore.technicien().listOfTechnicien;
   await city.all()
   filteredData.value = ListOfTechnicien.value;

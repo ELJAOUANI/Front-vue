@@ -20,7 +20,7 @@ onMounted(async () => {
     listOfArticles.value = useStore.article().items;
     await categories.showAll()
     loading.value = false
-    filteredData.value = listOfArticles.value;
+   filteredData.value = listOfArticles.value;
     
 })
 

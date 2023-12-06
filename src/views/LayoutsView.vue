@@ -165,7 +165,7 @@
             </li>
 
             <li class="slide">
-              <a href="index.html" class="side-menu__item">
+              <a href="/rapports" class="side-menu__item">
                 <i class="ti ti-bookmarks side-menu__icon"></i>
                 <span class="side-menu__label">Rapports</span>
               </a>
