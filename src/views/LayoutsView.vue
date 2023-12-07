@@ -1,4 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import router from '@/router'
+import { useStore } from '@/stores';
+const logout = () =>{
+      // Destroy the token by removing it from local storage
+      localStorage.removeItem('access_token');
+
+      // Navigate to the login page
+      router.replace('/login');
+    }
+
+  const user = useStore.auth().setUser(user)
+</script>
 <template>
   <div class="page">
     <header class="app-header">
@@ -50,7 +62,7 @@
                   />
                 </div>
                 <div class="d-xxl-block d-none my-auto">
-                  <h6 class="fw-semibold mb-0 lh-1 fs-14">Json Taylor</h6>
+                  <h6 class="fw-semibold mb-0 lh-1 fs-14">{{ user.name }}</h6>
                   <span class="op-7 fw-normal d-block fs-11 text-dark">Web Designer</span>
                 </div>
               </div>
@@ -91,11 +103,11 @@
                   ><i class="fe fe-lock fs-18 me-2 text-primary"></i>Lockscreen</a
                 >
               </li>
-              <li class="dropdown-item">
-                <a class="d-flex w-100" href="sign-in.html"
-                  ><i class="fe fe-info fs-18 me-2 text-primary"></i>Log Out</a
-                >
-              </li>
+             <li class="dropdown-item">
+              <a class="d-flex w-100" @click="logout" style="cursor: pointer;">
+               <i class="fe fe-info fs-18 me-2 text-primary"></i>Log Out
+            </a>
+            </li>
             </ul>
           </div>
         </div>
@@ -206,7 +218,4 @@ span {
 .main-menu .side-menu__item:hover {
   color: #01adef !important;
 }
-
-
-
 </style>

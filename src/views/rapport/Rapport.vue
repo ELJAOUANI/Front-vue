@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
-
 import { useStore } from '@/stores'
 import { article, city, rapport, technicien } from '@/services'
-
 import deleteConfirmation from '../../components/Modals/deleteConfirmation.vue'
 import { debounce } from 'lodash'
 
@@ -19,10 +17,8 @@ onMounted(async () => {
   await city.all()
   await technicien.all()
   await article.all()
-  
 
   loading.value = false
-  
 
   //filteredData.value = listOfArticles.value;
 })
@@ -42,9 +38,10 @@ const technicien_id = ref('')
 const date_of_operation = ref('')
 const order_number = ref('')
 const sr = ref('')
-
+const items = ref('-')
 const error = ref(false)
 const isDeleting = ref(false)
+const quantity = ref('')
 
 const submit = async () => {
   const formData = new FormData()
@@ -57,7 +54,9 @@ const submit = async () => {
   formData.append('technicien_id', technicien_id.value)
   formData.append('date_of_operation', date_of_operation.value)
   formData.append('order_number', order_number.value)
-  formData.append('sr', sr.value)
+  formData.append('items', items.value)
+  formData.append('quantity', quantity.value)
+
   await rapport
     .add(formData)
     .then((res) => {
@@ -73,6 +72,8 @@ const submit = async () => {
       date_of_operation.value = ''
       order_number.value = ''
       sr.value = ''
+      items.value = ''
+      quantity.value = ''
     })
     .catch((err) => {
       console.log(err)
@@ -94,9 +95,9 @@ const submit = async () => {
 //     })
 
 // }
+
 let itemDel = ref(0)
 let itemupdate = ref({})
-
 const item_nameup = ref('')
 const item_codeup = ref('')
 const uniteup = ref('')
@@ -118,7 +119,6 @@ watch(
     categoryup.value = updatedItem.category
   }
 )
-
 const handleDelete = async () => {
   isDeleting.value = true
   await article
@@ -195,13 +195,13 @@ const filter = debounce(() => {
       <div class="">
         <div class="card custom-card">
           <div class="card-header justify-content-between">
-            <div class="card-title">Listes des Articles</div>
+            <div class="card-title">Listes des Rapports</div>
             <button
               class="btn btn-primary mx-5"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              Ajouter Une Article
+              Ajouter Un Rapports
             </button>
           </div>
 
@@ -312,9 +312,7 @@ const filter = debounce(() => {
           </div>
         </div>
       </div>
-
       <!-- Insert Modal  -->
-
       <div
         class="modal fade"
         id="exampleModal"
@@ -336,16 +334,29 @@ const filter = debounce(() => {
             <div class="modal-body">
               <!-- start -->
               <form>
-              <div class="mb-3">
-                <label for="">Choisir une article</label>
-                  <select class="form-select" v-model="item" aria-label="Default select example">
-                    <option value="" selected disabled>Choisir une article</option>
+                <div class="mb-3">
+                  <select
+                    class="form-select"
+                    v-model="items"
+                    aria-label="Default select example"
+                    multiple
+                  >
+                    <option value="-" disabled>Choisir Une Article</option>
                     <option v-for="item in ListOfItems" :key="item.id" :value="item.id">
                       {{ item.item_name }}
                     </option>
                   </select>
                 </div>
-
+                <div class="mb-3">
+                  <label for="quantity">Quantite</label>
+                  <input
+                    type="text"
+                    v-model="quantity"
+                    placeholder="Quantite"
+                    class="form-control"
+                    name="quantity"
+                  />
+                </div>
 
                 <div class="mb-3">
                   <label for="serie_number">Numero de serie</label>

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { auth } from '@/services'
 import router from '@/router'
+import { useStore } from '@/stores';
 
 const isLoading = ref(false)
 const email = ref('')
@@ -17,7 +18,9 @@ const submit = async () => {
   isLoading.value = true
   await auth
     .login(formData)
-    .then(() => {
+    .then((res) => {
+      useStore.auth().setToken(res.token) 
+      useStore.auth().setUser(res.user) 
       router.replace({ name: 'dashboard' })
       error.value = false
       isLoading.value = false
