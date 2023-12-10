@@ -1,15 +1,25 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useStore } from '@/stores';
+import {onMounted, computed  , ref} from 'vue'
+
+const userName = ref('')
 const logout = () =>{
       // Destroy the token by removing it from local storage
       localStorage.removeItem('access_token');
+      localStorage.removeItem('user');
 
       // Navigate to the login page
       router.replace('/login');
     }
 
-  const user = useStore.auth().setUser(user)
+
+    
+    const storedUser = localStorage.getItem('user');
+    const user = JSON.parse(storedUser);
+
+
+
 </script>
 <template>
   <div class="page">
@@ -62,7 +72,7 @@ const logout = () =>{
                   />
                 </div>
                 <div class="d-xxl-block d-none my-auto">
-                  <h6 class="fw-semibold mb-0 lh-1 fs-14">{{ user.name }}</h6>
+                  <h6 class="fw-semibold mb-0 lh-1 fs-14">{{ user.first_name+" "+user.last_name }}</h6>
                   <span class="op-7 fw-normal d-block fs-11 text-dark">Web Designer</span>
                 </div>
               </div>

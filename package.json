@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite ",
+    "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --mode production",
     "preview": "vite preview",
     "test:unit": "vitest",

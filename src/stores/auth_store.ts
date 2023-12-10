@@ -5,6 +5,9 @@ export const auth = defineStore('auth', {
         user : null 
     }),
     getters: {
+        
+            getUser: (state) => (state.user ? state.user.name : null),
+        
     },
     actions: {
         setToken(token: any) {
@@ -16,6 +19,7 @@ export const auth = defineStore('auth', {
         },
         setUser(user:any){
             this.user = user
+            localStorage.setItem('user',JSON.stringify(user))
         } 
     },
 })

@@ -31,7 +31,7 @@ const add = async (formData: FormData) => {
   try {
     const res = await api().post('/reports/store', formData)
     console.log(res.data)
-    all()
+   
     return res.data
   } catch (error) {
     // Handle the error
@@ -40,21 +40,21 @@ const add = async (formData: FormData) => {
   }
 }
 
-const deleteArticle = async (id) => {
+const deleteRepot = async (id) => {
   try {
-    await api().delete(`/items/delete/${id}`)
+    await api().delete(`/reports/delete/${id}`)
     console.log('item deleted successfully')
   } catch (error) {
     console.error('Error deleting item', error)
   }
 }
 
-const updateArticle = async (id: number, updatedArticle) => {
+const updateReports= async (id: number, updatedArticle) => {
   try {
-    const response = await api().post(`/items/update/${id}`, updatedArticle)
+    const response = await api().put(`/reports/update/${id}`, updatedArticle)
     return response.data
   } catch (error) {
-    console.error('Error updating item:', error)
+    console.error('Error updating reports:', error)
     throw error
   }
 }
@@ -62,6 +62,6 @@ const updateArticle = async (id: number, updatedArticle) => {
 export const rapport = {
   all,
   add,
-  deleteArticle,
-  updateArticle
+  deleteRepot,
+  updateReports
 }
